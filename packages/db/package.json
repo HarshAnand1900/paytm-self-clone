@@ -1,0 +1,19 @@
+{
+    "name": "@repo/db",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+      ".": {
+        "types": "./index.ts",
+        "default": "./index.ts"
+      }
+    },
+    "dependencies": {
+      "@prisma/client": "^6.19.2"
+    },
+    "devDependencies": {
+      "@types/node": "^24.0.0",
+      "prisma": "^6.19.2"
+    }
+  }

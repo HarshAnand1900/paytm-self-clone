@@ -1,0 +1,37 @@
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  phone String @unique
+  password String
+  name String?
+  balance Balance?
+  sentTransfers P2PTransfer[] @relation("SentTransfers")
+  receivedTransfers P2PTransfer[] @relation("RecievedTransfers")
+}
+
+model Balance {
+  id Int @id @default(autoincrement())
+  userId Int @unique 
+  amount Int
+  user User @relation(fields: [userId], references: [id])
+}
+
+model P2PTransfer {
+  id Int @id @default(autoincrement())
+  fromUserId Int
+  toUserId Int
+  amount Int
+  timeStamp DateTime @default(now())
+  fromUser User @relation("SentTransfers", fields: [fromUserId], references: [id])
+  toUser User @relation("RecievedTransfers", fields: [toUserId], references: [id])
+}
