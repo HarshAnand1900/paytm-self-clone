@@ -189,6 +189,9 @@ import getDisplayMessage from "./lib/message";
      orderBy:{id : "asc"}
     })
 
+    type OtherUser = (typeof otherUsers)[number];
+
+
     const userData = await db.user.findUnique({
       where:{
         id: userId
@@ -246,7 +249,7 @@ import getDisplayMessage from "./lib/message";
               </div>
            </form>
            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-               {filteredHistoryBalance.map((transfer) =>(
+               {filteredHistoryBalance.map((transfer: HistoryItem) =>(
                <div 
                 key = {transfer.id}> 
                {
@@ -272,7 +275,7 @@ import getDisplayMessage from "./lib/message";
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-2 mt-3 space-y-3">
           <p className="text-lg font-semibold">Send Money</p>
         <div>
-         {otherUsers.map((user) =>(
+         {otherUsers.map((user: OtherUser) =>(
           <div 
           className="rounded-xl border border-slate-800 bg-slate-700 p-5"
           key = {user.id}>
