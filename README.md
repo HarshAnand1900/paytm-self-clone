@@ -1,6 +1,6 @@
 # Paytm Self Clone
 
-A paytem app built for learning and practice.
+A paytm app built for learning and practice.
 This project includes user authentication , wallet balance management, P2P Money Transfer, and Transaction History and Filtering.
 
 ## Features
