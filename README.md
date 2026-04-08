@@ -1,5 +1,10 @@
 # Paytm Self Clone
 
+## Live Demo
+
+[Open the deployed app](https://paytm-self-clone-user-app-six.vercel.app)
+
+
 A paytm app built for learning and practice.
 This project includes user authentication , wallet balance management, P2P Money Transfer, and Transaction History and Filtering.
 
