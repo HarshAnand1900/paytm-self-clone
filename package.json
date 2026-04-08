@@ -7,7 +7,7 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "postinstall": "cd ../../packages/db && npx prisma generate"
+    "postinstall": "cd packages/db && npx prisma generate"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",
