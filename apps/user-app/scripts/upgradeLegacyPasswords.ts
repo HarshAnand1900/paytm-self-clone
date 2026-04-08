@@ -1,4 +1,4 @@
-import { PrismaClient } from "../../../packages/db/generated/prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { randomBytes, scryptSync } from "crypto";
 
 const db = new PrismaClient();
