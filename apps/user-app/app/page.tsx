@@ -142,19 +142,17 @@ import getDisplayMessage from "./lib/message";
     type HistoryItem = (typeof historyBalance)[number];
 
 
-    let filteredHistoryBalance = historyBalance.filter((transfer: HistoryItem) => {
-     return transfer.fromUserId === currentUserId;
-    });
+    let filteredHistoryBalance = historyBalance
 
     if(selectedFilter === "sent"){
-      filteredHistoryBalance = historyBalance.filter((transfer) => {
+      filteredHistoryBalance = historyBalance.filter((transfer: HistoryItem) => {
         return transfer.fromUserId === currentUserId
       })
     }
      
 
     if(selectedFilter === "received"){
-      filteredHistoryBalance = historyBalance.filter((transfer) => {
+      filteredHistoryBalance = historyBalance.filter((transfer: HistoryItem) => {
         return transfer.toUserId === currentUserId
       })
     }
