@@ -1,5 +1,6 @@
-import { updateTag } from "next/cache";
-import { db } from "./db";
+import {Prisma} from "@prisma/client"
+import { db } from "app/lib/db";
+
 
 
 
@@ -34,7 +35,7 @@ import { db } from "./db";
 
 
   try{
-    await db.$transaction(async(trx) => {
+    await db.$transaction(async(trx: Prisma.TransactionClient) => {
 
           await trx.balance.update({
             where:{userId: fromUserId},
