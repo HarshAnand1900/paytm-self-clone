@@ -1,3 +1,4 @@
+import { Prisma } from "@prisma/client";
 import { db } from "./lib/db";
 import transferMoney from "./lib/transfer";
 import { revalidatePath } from "next/cache";
@@ -105,7 +106,7 @@ import getDisplayMessage from "./lib/message";
         }
         
         try{
-          await db.$transaction(async(topup) => {
+          await db.$transaction(async(topup: Prisma.TransactionClient) => {
 
             await topup.balance.update({
               where:{userId: userId},
