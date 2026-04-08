@@ -7,8 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "eslint",
-        "script": "node --loader ts-node/esm",
-        "postinstall": "cd packages/db && npx prisma generate"
+        "script": "node --loader ts-node/esm"
     },
     "dependencies": {
         "@repo/db": "*",
