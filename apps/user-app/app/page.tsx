@@ -139,7 +139,12 @@ import getDisplayMessage from "./lib/message";
       }
     })
 
-    let filteredHistoryBalance = historyBalance
+    type HistoryItem = (typeof historyBalance)[number];
+
+
+    let filteredHistoryBalance = historyBalance.filter((transfer: HistoryItem) => {
+     return transfer.fromUserId === currentUserId;
+    });
 
     if(selectedFilter === "sent"){
       filteredHistoryBalance = historyBalance.filter((transfer) => {
