@@ -24,13 +24,13 @@ export default function SendMoneySection({sendMoney,otherUsers}:SendMoneyProps){
           key = {user.id}>
             {user.id} | {user.name} | {user.phone} 
             <form 
-            className="mt-3 flex gap-3"
+            className="mt-3 flex flex-col gap-3 sm:flex-row"
             action={sendMoney}>
               <input type="hidden" name="toUserId" value={user.id}></input>
               <input 
-              className={inputClassName}
+              className={`${inputClassName} w-full sm:w-auto`}
               type="number" name="amount" min={"1"} placeholder="Enter Amount..." ></input>
-              <button className={buttonClassName}>Send Money!</button>
+              <button className={`${buttonClassName} w-full sm:w-auto`}>Send Money!</button>
             </form>
           </div>
          ))

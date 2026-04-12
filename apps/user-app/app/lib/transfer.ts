@@ -11,14 +11,14 @@ import { db } from "app/lib/db";
         }
     })
     
-    const recieverBalance = await db.balance.findUnique({
+    const receiverBalance = await db.balance.findUnique({
         where:{
             userId:toUserId
         }
     })
 
-    if(!recieverBalance){
-        return("reciever-not-found")
+    if(!receiverBalance){
+        return("receiver-not-found")
     }
 
     if(!senderBalance ){
@@ -29,7 +29,7 @@ import { db } from "app/lib/db";
         return("insufficient-balance")
     }
 
-    if(senderBalance.userId === recieverBalance.userId){
+    if(senderBalance.userId === receiverBalance.userId){
         return(("self-transfer-not-allowed"))
     }
 

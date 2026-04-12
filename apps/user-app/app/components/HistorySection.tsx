@@ -19,7 +19,7 @@ return(
            <p className="text-lg font-semibold"> Transaction History</p>
            <form 
             action={filterTrx}
-            style={{display: "flex", gap: "10px"}}>
+            className="flex flex-wrap gap-2">
               <div className="space-x-2">
                 <button className={buttonClassName}
                  type="submit" name="filter" value={"all"}>All Trx</button>
