@@ -207,13 +207,16 @@ import SendMoneySection from "./components/SendMoneySection";
     
 
     return (
-      <div className="min-h-screen bg-slate-950 text-white px-4 py-8 max-w-5xl mx-auto space-y-6">
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
-          {displayMessage &&  <p>{displayMessage}</p>}
-          <form 
+      <div className="min-h-screen bg-slate-950 text-white ">
+        <div className="mx-auto w-full max-w-5xl px-4 py-8 space-y-6 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-slate-800 bg-slate-900 p-4">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              {displayMessage &&  <p>{displayMessage}</p>}
+           <form 
           action={deleteCookie}> <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
           type="submit">Logout</button></form>
-        </div>
+            </div>
+          </div>
         <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
            <h1 className="text-3xl font-bold">Paytm</h1>
            <h3 className="text-slate-300">Total users: {userCount}</h3>
@@ -240,7 +243,7 @@ import SendMoneySection from "./components/SendMoneySection";
        sendMoney={sendMoney}
        otherUsers={otherUsers}
        />
-        
+         </div>
        </div>
     );
   }
