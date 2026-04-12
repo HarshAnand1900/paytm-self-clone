@@ -1,3 +1,4 @@
+import { buttonClassName,itemCardClassName } from "./style";
 type HistoryItem ={
     id: number;
     fromUserId: number;
@@ -20,35 +21,41 @@ return(
             action={filterTrx}
             style={{display: "flex", gap: "10px"}}>
               <div className="space-x-2">
-                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                <button className={buttonClassName}
                  type="submit" name="filter" value={"all"}>All Trx</button>
-                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                <button className={buttonClassName}
                 type="submit" name="filter" value={"sent"}>Sent Trx</button>
-                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
+                <button className={buttonClassName}
                 type="submit" name="filter" value={"received"}>Received Trx</button>
               </div>
            </form>
            <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-               {filteredHistoryBalance.map((transfer: HistoryItem) =>(
+               {filteredHistoryBalance.length === 0 ? (
+                <div className="rounded-xl border border-slate-800 bg-slate-800 p-4 text-slate-400">
+                No transactions found for this filter            
+                </div>
+               ):(
+               filteredHistoryBalance.map((transfer: HistoryItem) =>(
                <div 
                 key = {transfer.id}> 
-               {
-                transfer.fromUserId === currentUserId
-               ? <div className="rounded-xl border border-slate-800 bg-slate-700 p-5">
+               {transfer.fromUserId === currentUserId ? (
+                <div className={itemCardClassName}>
                  <div>Sent</div>
                  <div> {`Amount: ${transfer.amount}`}</div>  
                  <div>{`To User: ${transfer.toUserId}`}</div>
                  <div>{` Time: ${transfer.timeStamp.toString()}`}</div>
                </div>
-              :  <div className="rounded-xl border border-slate-800 bg-slate-700 p-5">
+                ) : (
+              <div className={itemCardClassName}>
                   <div> Received  </div> 
                   <div> {`Amount: ${transfer.amount}`}</div> 
                   <div> {`from User: ${transfer.fromUserId}`} </div>
                   <div>{`Time: ${transfer.timeStamp.toString()}`} </div>
               </div>
-               }                
+               )}                
               </div>
-              ))}
+              ))
+            )}
              </div> 
          </div>
 )
