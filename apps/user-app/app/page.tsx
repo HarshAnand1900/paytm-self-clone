@@ -6,6 +6,10 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import getCurrentUserId from "./lib/auth";
 import getDisplayMessage from "./lib/message";
+import ProfileSection from "./components/ProfileSection";
+import BalanceSection from "./components/BalanceSection";
+import HistorySection from "./components/HistorySection";
+import SendMoneySection from "./components/SendMoneySection";
 
 
   
@@ -77,9 +81,9 @@ import getDisplayMessage from "./lib/message";
 
       
 
-       const transferedMoney = await transferMoney(userId,numberedToUserId,numberedUserAmount)
-       if(transferedMoney !== "success"){
-        redirect(`/?message=${transferedMoney}`)
+       const transferredMoney = await transferMoney(userId,numberedToUserId,numberedUserAmount)
+       if(transferredMoney !== "success"){
+        redirect(`/?message=${transferredMoney}`)
        }
   
          revalidatePath("/")
@@ -215,85 +219,28 @@ import getDisplayMessage from "./lib/message";
            <h3 className="text-slate-300">Total users: {userCount}</h3>
         </div>
         
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-          <h3 className="text-lg font-semibold">Profile</h3>
-          <p> UserName: {userData?.name || "No name"}</p>
-          <p>Phone Number: {userData?.phone}</p>
-        </div>
+        <ProfileSection 
+        name={userData.name} 
+        phone={userData.phone}
+        />
         
-           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 mt-3 space-y-3">
-            <h3 className="text-lg font-semibold">Balance & Top-Up</h3>
-            <p>User Balance of User {currentUserId}: {userBalance?.amount}</p>
-            <form 
-            className="mt-3 flex gap-3"
-            action={selfTopup}>
-            <input className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-white placeholder:text-slate-400 outline-none focus:border-blue-500"
-            type="number" name="amount" placeholder="Enter Amount"></input>
-            <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
-            type="submit">Top-Up</button>
-            </form>
-           </div>
+        <BalanceSection 
+        currentUserId={currentUserId} 
+        amount={userBalance?.amount}
+        selfTopup={selfTopup}
+        />
+
+        <HistorySection 
+        filterTrx={filterTrx}
+        currentUserId={currentUserId}
+        filteredHistoryBalance={filteredHistoryBalance}
+        />
         
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5">
-           <p className="text-lg font-semibold"> Transaction History</p>
-           <form 
-            action={filterTrx}
-            style={{display: "flex", gap: "10px"}}>
-              <div className="space-x-2">
-                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
-                 type="submit" name="filter" value={"all"}>All Trx</button>
-                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
-                type="submit" name="filter" value={"sent"}>Sent Trx</button>
-                <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded"
-                type="submit" name="filter" value={"received"}>Received Trx</button>
-              </div>
-           </form>
-           <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-4">
-               {filteredHistoryBalance.map((transfer: HistoryItem) =>(
-               <div 
-                key = {transfer.id}> 
-               {
-                transfer.fromUserId === currentUserId
-               ? <div className="rounded-xl border border-slate-800 bg-slate-700 p-5">
-                 <div>Sent</div>
-                 <div> {`Amount: ${transfer.amount}`}</div>  
-                 <div>{`To User: ${transfer.toUserId}`}</div>
-                 <div>{` Time: ${transfer.timeStamp.toString()}`}</div>
-               </div>
-              :  <div className="rounded-xl border border-slate-800 bg-slate-700 p-5">
-                  <div> Received  </div> 
-                  <div> {`Amount: ${transfer.amount}`}</div> 
-                  <div> {`from User: ${transfer.fromUserId}`} </div>
-                  <div>{`Time: ${transfer.timeStamp.toString()}`} </div>
-              </div>
-               }                
-              </div>
-              ))}
-             </div> 
-         </div>
+       <SendMoneySection
+       sendMoney={sendMoney}
+       otherUsers={otherUsers}
+       />
         
-        <div className="rounded-xl border border-slate-800 bg-slate-900 p-5 space-y-2 mt-3 space-y-3">
-          <p className="text-lg font-semibold">Send Money</p>
-        <div>
-         {otherUsers.map((user: OtherUser) =>(
-          <div 
-          className="rounded-xl border border-slate-800 bg-slate-700 p-5"
-          key = {user.id}>
-            {user.id} | {user.name} | {user.phone} 
-            <form 
-            className="mt-3 flex gap-3"
-            action={sendMoney}>
-              <input type="hidden" name="toUserId" value={user.id}></input>
-              <input 
-              className="rounded-lg border border-slate-700 bg-slate-800 px-3 py-2 text-white placeholder:text-slate-400 outline-none focus:border-blue-500"
-              type="number" name="amount" min={"1"} placeholder="Enter Amount..." ></input>
-              <button className="bg-blue-700 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded" >Send Money!</button>
-            </form>
-          </div>
-         ))}
-       </div>   
-        </div>
-   
-      </div>
+       </div>
     );
   }
