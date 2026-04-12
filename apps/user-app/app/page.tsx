@@ -36,8 +36,8 @@ import SendMoneySection from "./components/SendMoneySection";
 
     const currentUserId = await getCurrentUserId()
 
-    if(currentUserId === null){
-     redirect("/signin")
+    if (currentUserId === null){
+      throw new Error("User id missing after middleware check")
     }
 
     const userId = currentUserId 
