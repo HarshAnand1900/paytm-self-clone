@@ -202,6 +202,10 @@ import SendMoneySection from "./components/SendMoneySection";
       }
     })
 
+    if (!userData) {
+      throw new Error("User data mising for current user");
+    }
+
 
     const displayMessage = await getDisplayMessage({searchParams})
     const isSuccessMessage = displayMessage?.toLowerCase() === "success"
