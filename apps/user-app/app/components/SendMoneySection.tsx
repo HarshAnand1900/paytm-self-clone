@@ -1,7 +1,7 @@
 import { buttonClassName,inputClassName,itemCardClassName } from "./style";
 type OtherUser = {
     id: number;
-    name: string;
+    name: string | null;
     phone: string;
 }
 
@@ -22,7 +22,7 @@ export default function SendMoneySection({sendMoney,otherUsers}:SendMoneyProps){
           <div 
           className={itemCardClassName}
           key = {user.id}>
-            {user.id} | {user.name} | {user.phone} 
+            {user.id} | {user.name || "No Name"} | {user.phone} 
             <form 
             className="mt-3 flex flex-col gap-3 sm:flex-row"
             action={sendMoney}>
