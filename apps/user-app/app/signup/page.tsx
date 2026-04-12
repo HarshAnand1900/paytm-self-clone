@@ -16,8 +16,6 @@ export default async function Signup({
     searchParams?: Promise<{message?: string}>
   }){
 
-    const displayMessage = await getDisplayMessage({searchParams})
-
     const helperCookie = await getCurrentUserId()
 
     if(helperCookie)
@@ -75,17 +73,29 @@ export default async function Signup({
         });
       redirect('/')
     }
+    
+    const displayMessage = await getDisplayMessage({searchParams})
+    const isSuccessMessage = displayMessage?.toLowerCase() === "success"
 
     return(
-        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-4">
-            <div className="w-full max-w-md rounded-2xl border border-slate-800 bg-slate-900 p-8 space-y-6 shadow-lg">
+        <div className="min-h-screen bg-slate-950 text-white flex items-center justify-center px-4 py-8">
+           <div className=" mx-auto w-full max-w-md rounded-xl border border-slate-800 bg-slate-900 p-6">
 
               <div>
                  <h2 className="text-2xl font-semibold">Sign Up</h2>
                  <p className="text-slate-400 text-sm">Welcome . Enter your details.</p>
                </div>
 
-            {displayMessage &&  <p>{displayMessage}</p>}
+            {displayMessage &&  (
+              <p 
+              className={`mb-4 rounded-lg border px-3 py-2 text-sm font medium 
+              ${isSuccessMessage
+                ?"border-emerald-700 bg-emerald-950 text-emerald-300"
+                :"border-rose-700 bg-rose-950 text-rose-300"
+              }`}>
+               {displayMessage}
+              </p>
+            )}
             
             <form className="w-full  mt-4 flex flex-col gap-4"
             action={createUser}>
